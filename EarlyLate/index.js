@@ -66,15 +66,9 @@ socket.onmessage = (event) => {
     const data = JSON.parse(event.data),
       hits = data.gameplay.hits;
     const hitErrors = hits.hitErrorArray;
-    // console.log(data);
     if (hitErrors) {
-      // console.log(hitErrors);
       currHits = hits;
       if (ifErrorHit(currHits, prevHits)) {
-        // console.log('Prev');
-        // console.log(prevHits);
-        // console.log('Curr');
-        // console.log(currHits);
         let latestError = hitErrors[hitErrors.length - 1];
         reset_animation();
         if (latestError < 0) {
@@ -84,6 +78,8 @@ socket.onmessage = (event) => {
         }
       }
       prevHits = currHits;
+    } else {
+      prevHits = null;
     }
   } catch (err) {
     console.log(err);
