@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 300;
+  src: local(''), url('fonts/comfortaa-v29-latin-300.woff') format('woff');
+}
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''), url('fonts/comfortaa-v29-latin-regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 500;
+  src: local(''), url('fonts/comfortaa-v29-latin-500.woff') format('woff');
+}
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 600;
+  src: local(''), url('fonts/comfortaa-v29-latin-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 700;
+  src: local(''), url('fonts/comfortaa-v29-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+:root {
+  font-size: 64px;
+  --width: 18rem;
+  --height: 3.8rem;
+  --border-radius: 1rem;
+  --primary-font-color: white;
+  --secondary-font-color: #ffffffd0;
+  --pp: #537fd6;
+  --h100: #9df9aa;
+  --h50: #f9eb9d;
+  --h0: #f99d9d;
+  --SHD: #e4e4e4;
+  --S: #fffb8b;
+  --A: #9df9aa;
+  --B: #9dacf9;
+  --C: #ed9df9;
+  --D: #f99d9d;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Comfortaa';
+}
+
+.info {
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 3%,
+    black 7%,
+    black 93%,
+    transparent 97%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 3%,
+    black 7%,
+    black 93%,
+    transparent 97%
+  );
+  transition: all 1s ease;
+}
+
+#error,
+#error-offset {
+  color: var(--primary-font-color);
+  opacity: 0;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-shadow: 0 0.05rem 0.1rem #000;
+  animation: click 0.1s ease-in 0s, fadeOut 1s ease-in 0s;
+}
+
+@keyframes click {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
