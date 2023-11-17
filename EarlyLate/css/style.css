@@ -55,30 +55,40 @@ body {
 }
 
 .info {
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 100%;
-  position: absolute;
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 3%,
-    black 7%,
-    black 93%,
-    transparent 97%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 3%,
-    black 7%,
-    black 93%,
-    transparent 97%
-  );
-  transition: all 1s ease;
+}
+
+#error-hist {
+  display: flex;
+  animation: fadeOut 1s ease-in 0s;
+}
+
+.error-default {
+  opacity: 0;
+  width: 1rem;
+  height: 2px;
+}
+
+.error-early {
+  opacity: 0;
+  width: 1rem;
+  height: 2px;
+  border: black 1px solid;
+  background-color: rgb(0, 128, 255);
+  animation: fadeOut 1s ease-in 0s;
+}
+
+.error-late {
+  opacity: 0;
+  width: 1rem;
+  height: 2px;
+  border: black 1px solid;
+  background-color: red;
+  animation: fadeOut 1s ease-in 0s;
 }
 
 #error,
@@ -89,6 +99,10 @@ body {
   font-weight: 700;
   text-shadow: 0 0.05rem 0.1rem #000;
   animation: click 0.1s ease-in 0s, fadeOut 1s ease-in 0s;
+}
+
+#error {
+  margin-top: 2rem;
 }
 
 @keyframes click {
