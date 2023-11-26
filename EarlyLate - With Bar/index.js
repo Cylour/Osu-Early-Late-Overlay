@@ -27,30 +27,32 @@ const ifErrorHit = (currHits, prevHits) => {
   );
 };
 
-const setOffsetEarly = (latestError, error, error_offset, error_line) => {
+const setOffsetEarly = (latestError, error, error_offset, error_hist) => {
   error.innerHTML = `EARLY`;
   error_offset.innerHTML = `${-latestError}ms`;
   error.style.color = 'rgb(0, 128, 255)';
   error_offset.style.color = 'rgb(0, 128, 255)';
-  error_line.style.backgroundColor = 'rgb(0, 128, 255)';
   let errorVal = Math.min(Math.abs(latestError), 100);
   error_offset.style.fontSize = `${0.3 + (0.5 / 100) * errorVal}rem`;
-  error_line.style.boxShadow = `0px 0px 50px ${
-    15 + (20 / 100) * errorVal
-  }px rgb(0, 128, 255)`;
+
+  error_hist.removeChild(error_hist.lastElementChild);
+  const errorBlock = document.createElement('div');
+  errorBlock.className = 'error-early';
+  error_hist.prepend(errorBlock);
 };
 
-const setOffsetLate = (latestError, error, error_offset, error_line) => {
+const setOffsetLate = (latestError, error, error_offset, error_hist) => {
   error.innerHTML = `LATE`;
   error_offset.innerHTML = `${latestError}ms`;
   error.style.color = 'red';
   error_offset.style.color = 'red';
-  error_line.style.backgroundColor = 'red';
   let errorVal = Math.min(Math.abs(latestError), 100);
   error_offset.style.fontSize = `${0.3 + (0.5 / 100) * errorVal}rem`;
-  error_line.style.boxShadow = `0px 0px 50px ${
-    5 + (30 / 100) * errorVal
-  }px red`;
+
+  error_hist.removeChild(error_hist.lastElementChild);
+  const errorBlock = document.createElement('div');
+  errorBlock.className = 'error-late';
+  error_hist.prepend(errorBlock);
 };
 
 const doResetAnimation = (element) => {
@@ -62,15 +64,19 @@ const doResetAnimation = (element) => {
 const reset_animation = () => {
   const el = document.getElementById('error');
   const el_o = document.getElementById('error-offset');
-  const el_l = document.getElementById('error-line');
   doResetAnimation(el);
   doResetAnimation(el_o);
-  doResetAnimation(el_l);
 };
 
 const error = document.getElementById('error');
-const error_offset = document.getElementById('error-offset');
+const error_hist = document.getElementById('error-hist');
+for (let i = 0; i < 20; i++) {
+  const error_block = document.createElement('div');
+  error_block.className = 'error-default';
+  error_hist.appendChild(error_block);
+}
 const error_line = document.getElementById('error-line');
+const error_offset = document.getElementById('error-offset');
 
 let prevHits = null;
 let currHits = null;
@@ -85,14 +91,15 @@ socket.onmessage = (event) => {
         let latestError = hitErrors[hitErrors.length - 1];
         reset_animation();
         if (latestError < 0) {
-          setOffsetEarly(latestError, error, error_offset, error_line);
+          setOffsetEarly(latestError, error, error_offset, error_hist);
         } else {
-          setOffsetLate(latestError, error, error_offset, error_line);
+          setOffsetLate(latestError, error, error_offset, error_hist);
         }
       }
       prevHits = currHits;
     } else {
       prevHits = null;
+      error_hist.childNodes.forEach((el) => (el.className = 'error-default'));
     }
   } catch (err) {
     console.log(err);
