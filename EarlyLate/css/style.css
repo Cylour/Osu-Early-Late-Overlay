@@ -36,6 +36,7 @@
   --primary-font-color: white;
   --early-font-color: rgb(0, 128, 255);
   --late-font-color: red;
+  --combo-size: 1.1;
 }
 * {
   margin: 0;
@@ -55,16 +56,27 @@ body {
 }
 
 #error,
-#error-offset {
+#error-offset,
+#error-combo {
   color: var(--primary-font-color);
   opacity: 0;
   font-size: 0.7rem;
   font-weight: 700;
   text-shadow: 0 0.05rem 0.1rem #000;
+}
+
+#error,
+#error-offset {
   animation: click 0.1s ease-in 0s, fadeOut 1s ease-in 0s;
 }
 
-#error {
+#error-combo {
+  margin-left: 0.5rem;
+  animation: click-combo 0.1s ease-in 0s, fadeOut 1s ease-in 0s;
+}
+
+#error-wrapper {
+  display: flex;
   margin-top: 2rem;
 }
 
@@ -84,7 +96,19 @@ body {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes click-combo {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(var(--combo-size));
   }
   100% {
     transform: scale(1);
